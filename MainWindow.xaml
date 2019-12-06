@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pong"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1200" Loaded="wnd_Loaded" ResizeMode="NoResize">
+        Title="MainWindow" Height="800" Width="1200" Loaded="wnd_Loaded" ResizeMode="NoResize" Background="DarkGreen">
     <Canvas x:Name="Cvs" SizeChanged="Cvs_SizeChanged">
         <Menu Name="MainMenu" IsMainMenu="True" HorizontalAlignment="Left" Height="21" VerticalAlignment="Top" Width="43" Canvas.Left="10" Canvas.Top="10">
             <MenuItem Header="Spiel" Width="43" Height="21">
@@ -16,7 +16,7 @@
         </Menu>
 
         <Rectangle x:Name="Rect" Fill="#FFF4F4F5" Height="680" Canvas.Left="108" Stroke="Black" Canvas.Top="36" Width="1007"/>
-        <Button Content="Reset" Canvas.Left="10" Canvas.Top="36" Width="43" RenderTransformOrigin="0.016,-0.142"/>
+        <Button Content="Reset" Canvas.Left="10" Canvas.Top="36" Width="43" RenderTransformOrigin="0.016,-0.142" Click="Button_Click"/>
 
         <Image Height="680" Canvas.Left="108" Canvas.Top="36" Width="1007" Source="fussball-mittellinie.jpg" Stretch="Fill"/>
         <Rectangle x:Name="midrect"  Fill="#FFF4F4F5" Height="680" Canvas.Left="608" Stroke="Black" Canvas.Top="33" Width="1" RenderTransformOrigin="0.5,0.5">
@@ -29,7 +29,6 @@
                 </TransformGroup>
             </Rectangle.RenderTransform>
         </Rectangle>
-        <Label Content="" Canvas.Left="10" Canvas.Top="78" Width="43" Height="28"/>
     </Canvas>
 
 </Window>

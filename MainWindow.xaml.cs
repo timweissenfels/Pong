@@ -121,7 +121,7 @@ namespace Pong
             if ((bool)dlg.ShowDialog())
             {
                 ball.UnDraw(Cvs);
-                ball = new Ball(250, 150, 200, 200, dlg.Radius);
+                ball = new Ball(250, 150, 800, 800, dlg.Radius);
                 ball.Draw(Cvs);
             }
         }
@@ -143,6 +143,11 @@ namespace Pong
                 Canvas.SetTop(Rect, sy * Canvas.GetTop(Rect));
             }
             catch { }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
