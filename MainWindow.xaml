@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Pong"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1200" Loaded="wnd_Loaded" ResizeMode="NoResize" Background="DarkGreen">
-    <Canvas x:Name="Cvs" SizeChanged="Cvs_SizeChanged">
+    <Canvas x:Name="Cvs">
         <Menu Name="MainMenu" IsMainMenu="True" HorizontalAlignment="Left" Height="21" VerticalAlignment="Top" Width="43" Canvas.Left="10" Canvas.Top="10">
             <MenuItem Header="Spiel" Width="43" Height="21">
                 <MenuItem Name="start" Header="Start" Click="start_Click" />
@@ -29,6 +29,10 @@
                 </TransformGroup>
             </Rectangle.RenderTransform>
         </Rectangle>
+        <Label x:Name="score_s1"  Content="Score Spieler 1: " Canvas.Left="152" Canvas.Top="5" Width="123" Foreground="Red"/>
+        <Label x:Name="score_s1_value"  Content="0" Canvas.Left="250" Canvas.Top="5" Width="123" Foreground="Red"/>
+        <Label x:Name="score_s2"  Content="Score Spieler 2: " Canvas.Left="944" Canvas.Top="7" Width="123" Foreground="Red"/>
+        <Label x:Name="score_s2_value"  Content="0" Canvas.Left="1061" Canvas.Top="7" Width="123" Foreground="Red"/>
     </Canvas>
 
 </Window>

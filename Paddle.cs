@@ -9,6 +9,9 @@ namespace Pong
     class Paddle
     {
         public enum MOVE_DIR { STOP = 0, UP = 1, DOWN = 2, Right = 3, Left = 4 }
+        public enum p_type { COMPUTER = 1, PLAYER = 2 }
+
+        public enum p_level { NONE = 100, EASY = 10, MEDIUM = 5, UNBEATABLE = 1}
         public Rectangle Player_rec { get; set; }
 
         private double x;
@@ -16,14 +19,10 @@ namespace Pong
         private double vY;
         private double vX;
 
-        public enum p_type
-        {
-            COMPUTER = 1,
-            PLAYER = 2
-        }
-
         public MOVE_DIR DIR = MOVE_DIR.STOP;
         public p_type PType = p_type.COMPUTER;
+        private p_level p_Level = p_level.MEDIUM;
+
         public double X
         {
             set
@@ -52,7 +51,7 @@ namespace Pong
             set { Player_rec.Width = value; }
         }
 
-        public Paddle(double __Height = 200, double __Width = 20, double __X = 150, double __Y = 60, double __vY = 10, double __vX = 10, p_type __pType = p_type.COMPUTER)
+        public Paddle(double __Height = 200, double __Width = 20, double __X = 150, double __Y = 60, double __vY = 10, double __vX = 10, p_type __pType = p_type.COMPUTER,p_level __p_Level = p_level.MEDIUM)
         {
             Player_rec = new Rectangle();
 
@@ -63,6 +62,8 @@ namespace Pong
             this.vY = __vY;
             this.vX = __vX;
             this.PType = __pType;
+            this.p_Level = __p_Level;
+
             Player_rec.Fill = Brushes.Black;
 
             Canvas.SetTop(Player_rec, this.Y);
@@ -83,18 +84,6 @@ namespace Pong
             {
                 c.Children.Remove(Player_rec);
             }
-        }
-
-        public void Resize(double sx, double sy)
-        {
-            this.X *= sx;
-            this.Y *= sy;
-
-            this.Width *= (sx + sy) / 2;
-            this.Height *= (sx + sy) / 2;
-
-            Canvas.SetLeft(Player_rec, sx * Canvas.GetLeft(Player_rec));
-            Canvas.SetTop(Player_rec, sy * Canvas.GetTop(Player_rec));
         }
 
         public void Move(Ball playball)

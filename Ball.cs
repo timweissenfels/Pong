@@ -15,6 +15,8 @@ namespace Pong
         public Double Vy { get; set; }
         public Double Radius { get; set; }
 
+        bool Scored = false;
+
         public Ball(Double X = 100, Double Y = 100, Double Vx = 50, Double Vy = 80, Double Radius = 10)
         {
             this.X = X;
@@ -27,7 +29,7 @@ namespace Pong
             {
                 Width = 2 * Radius,
                 Height = 2 * Radius,
-                Fill = Brushes.Blue
+                Fill = Brushes.DarkBlue
             };
 
             Canvas.SetLeft(Elli, X - Radius);
@@ -50,23 +52,6 @@ namespace Pong
             }
         }
 
-        public void Resize(double sx, double sy)
-        {
-            X *= sx;
-            Y *= sy;
-
-            Vx *= sx;
-            Vy *= sy;
-
-            Radius *= (sx + sy) / 2;
-
-            Elli.Width *= (sx + sy) / 2;
-            Elli.Height *= (sx + sy) / 2;
-
-            Canvas.SetLeft(Elli, sx * Canvas.GetLeft(Elli));
-            Canvas.SetTop(Elli, sy * Canvas.GetTop(Elli));
-        }
-
         public void Move(Double dt)
         {
             X = X + Vx * dt / 1000;
@@ -74,7 +59,7 @@ namespace Pong
            // return new Pair<double, double>(X, Y);
         }
 
-        public void Collision(Rectangle r)
+        public void Collision(Rectangle r, ref Label lsp1, ref Label lsp2)
         {
             // Obere oder untere Bande
             if (Y - Radius <= Canvas.GetTop(r))
@@ -93,12 +78,35 @@ namespace Pong
             {
                 Vx = -Vx;
                 X = X + 2 * (Canvas.GetLeft(r) - (X - Radius));
+                if (!this.Scored)
+                {
+                    int value;
+                    int.TryParse(lsp1.Content.ToString(), out value);
+                    lsp1.Content = value + 1;
+                }
+                this.Elli.Fill = Brushes.Red;
+                this.Scored = true;
             }
             else if (X + Radius >= Canvas.GetLeft(r) + r.Width)
             {
                 Vx = -Vx;
                 X = X - 2 * (X + Radius - Canvas.GetLeft(r) - r.Width);
+                if (!this.Scored)
+                {
+                    int value;
+                    int.TryParse(lsp2.Content.ToString(), out value);
+                    lsp2.Content = value + 1;
+                }
+                this.Elli.Fill = Brushes.Red;
+                this.Scored = true;
             }
+
+            if(this.X - Radius > Canvas.GetLeft(r) + r.Width/5 && this.X + Radius < Canvas.GetLeft(r) + (r.Width-r.Width/5))
+            {
+                this.Elli.Fill = Brushes.DarkBlue;
+                this.Scored = false;
+            }
+
 
             Canvas.SetLeft(Elli, X - Radius);
             Canvas.SetTop(Elli, Y - Radius);

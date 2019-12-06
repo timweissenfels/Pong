@@ -19,7 +19,7 @@ namespace Pong
 
         DispatcherTimer timer;
         Double ticks_old;
-
+      
         public MainWindow()
         {
             dlg = new StartDlg();
@@ -77,7 +77,7 @@ namespace Pong
 
             p1.Move(ball);
             p2.Move(ball);
-            ball.Collision(Rect);
+            ball.Collision(Rect, ref score_s1_value, ref score_s2_value);
             ball.Collision_paddle(p1);
             ball.Collision_paddle(p2);
 
@@ -124,25 +124,6 @@ namespace Pong
                 ball = new Ball(250, 150, 800, 800, dlg.Radius);
                 ball.Draw(Cvs);
             }
-        }
-
-        private void Cvs_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            try
-            {
-                Double sx = e.NewSize.Width / e.PreviousSize.Width;
-                Double sy = e.NewSize.Height / e.PreviousSize.Height;
-
-                ball.Resize(sx, sy);
-                p1.Resize(sy,sy);
-                p2.Resize(sx,sy);
-
-                Rect.Width *= sx;
-                Rect.Height *= sy;
-                Canvas.SetLeft(Rect, sx * Canvas.GetLeft(Rect));
-                Canvas.SetTop(Rect, sy * Canvas.GetTop(Rect));
-            }
-            catch { }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
