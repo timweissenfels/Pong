@@ -1,0 +1,16 @@
+C:\Users\Tim\source\repos\Schule\DlgMenuDemo\bin\Release\DlgMenuDemo.exe.config
+C:\Users\Tim\source\repos\Schule\DlgMenuDemo\bin\Release\DlgMenuDemo.exe
+C:\Users\Tim\source\repos\Schule\DlgMenuDemo\bin\Release\DlgMenuDemo.pdb
+C:\Users\Tim\source\repos\Schule\DlgMenuDemo\obj\Release\DlgMenuDemo.csprojAssemblyReference.cache
+C:\Users\Tim\source\repos\Schule\DlgMenuDemo\obj\Release\MainWindow.g.cs
+C:\Users\Tim\source\repos\Schule\DlgMenuDemo\obj\Release\StartDlg.g.cs
+C:\Users\Tim\source\repos\Schule\DlgMenuDemo\obj\Release\App.g.cs
+C:\Users\Tim\source\repos\Schule\DlgMenuDemo\obj\Release\DlgMenuDemo_MarkupCompile.cache
+C:\Users\Tim\source\repos\Schule\DlgMenuDemo\obj\Release\DlgMenuDemo_MarkupCompile.lref
+C:\Users\Tim\source\repos\Schule\DlgMenuDemo\obj\Release\MainWindow.baml
+C:\Users\Tim\source\repos\Schule\DlgMenuDemo\obj\Release\StartDlg.baml
+C:\Users\Tim\source\repos\Schule\DlgMenuDemo\obj\Release\DlgMenuDemo.g.resources
+C:\Users\Tim\source\repos\Schule\DlgMenuDemo\obj\Release\DlgMenuDemo.Properties.Resources.resources
+C:\Users\Tim\source\repos\Schule\DlgMenuDemo\obj\Release\DlgMenuDemo.csproj.GenerateResource.cache
+C:\Users\Tim\source\repos\Schule\DlgMenuDemo\obj\Release\DlgMenuDemo.exe
+C:\Users\Tim\source\repos\Schule\DlgMenuDemo\obj\Release\DlgMenuDemo.pdb

@@ -1,0 +1,16 @@
+C:\Users\Tim\source\repos\Aufgaben-WPF-1\Pong\obj\Debug\App.g.cs
+C:\Users\Tim\source\repos\Aufgaben-WPF-1\Pong\obj\Debug\MainWindow.g.cs
+C:\Users\Tim\source\repos\Aufgaben-WPF-1\Pong\obj\Debug\StartDlg.g.cs
+C:\Users\Tim\source\repos\Aufgaben-WPF-1\Pong\obj\Debug\Pong.csprojAssemblyReference.cache
+C:\Users\Tim\source\repos\Aufgaben-WPF-1\Pong\bin\Debug\DlgMenuDemo.exe.config
+C:\Users\Tim\source\repos\Aufgaben-WPF-1\Pong\bin\Debug\DlgMenuDemo.exe
+C:\Users\Tim\source\repos\Aufgaben-WPF-1\Pong\bin\Debug\DlgMenuDemo.pdb
+C:\Users\Tim\source\repos\Aufgaben-WPF-1\Pong\obj\Debug\DlgMenuDemo_MarkupCompile.cache
+C:\Users\Tim\source\repos\Aufgaben-WPF-1\Pong\obj\Debug\DlgMenuDemo_MarkupCompile.lref
+C:\Users\Tim\source\repos\Aufgaben-WPF-1\Pong\obj\Debug\MainWindow.baml
+C:\Users\Tim\source\repos\Aufgaben-WPF-1\Pong\obj\Debug\StartDlg.baml
+C:\Users\Tim\source\repos\Aufgaben-WPF-1\Pong\obj\Debug\DlgMenuDemo.g.resources
+C:\Users\Tim\source\repos\Aufgaben-WPF-1\Pong\obj\Debug\DlgMenuDemo.Properties.Resources.resources
+C:\Users\Tim\source\repos\Aufgaben-WPF-1\Pong\obj\Debug\Pong.csproj.GenerateResource.cache
+C:\Users\Tim\source\repos\Aufgaben-WPF-1\Pong\obj\Debug\DlgMenuDemo.exe
+C:\Users\Tim\source\repos\Aufgaben-WPF-1\Pong\obj\Debug\DlgMenuDemo.pdb
