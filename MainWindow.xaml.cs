@@ -18,7 +18,6 @@ namespace Pong
         Paddle p2;
 
         DispatcherTimer timer;
-        Double ticks_old;
       
         public MainWindow()
         {
@@ -59,7 +58,7 @@ namespace Pong
             timer.Tick += new EventHandler(timer_Tick);
             timer.Interval = new TimeSpan(0, 0, 0, 0, 15);
 
-            ball = new Ball(250, 150, 400, 400, dlg.Radius);
+            ball = new Ball(250, 150, 7, 7, dlg.Radius);
             p1 = new Paddle(__X:Canvas.GetLeft(Rect) + 80, __pType: p_type.PLAYER);
             p2 = new Paddle(__X:Canvas.GetLeft(Rect) + Rect.Width - 100);
 
@@ -70,8 +69,7 @@ namespace Pong
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            Double ticks = Environment.TickCount;
-            ball.Move(ticks - ticks_old);
+            ball.Move();
 
             check_move_DIR();
 
@@ -83,8 +81,6 @@ namespace Pong
 
             p1.Collison(Rect,midrect);
             p2.Collison(Rect,midrect);
-
-            ticks_old = ticks;
         }
 
         private void check_move_DIR()
@@ -104,8 +100,6 @@ namespace Pong
 
         private void start_Click(object sender, RoutedEventArgs e)
         {
-            ticks_old = Environment.TickCount;
-
             timer.Start();
         }
 
@@ -128,7 +122,20 @@ namespace Pong
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            ball.X = Canvas.GetLeft(midrect);
+            ball.Y = Canvas.GetTop(midrect);
+            score_s1_value.Content = 0;
+            score_s2_value.Content = 0;
+            ball.Scored = false;
+        }
 
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (ball != null)
+            {
+                ball.Vx = e.NewValue;
+                ball.Vy = e.NewValue;
+            }
         }
     }
 }

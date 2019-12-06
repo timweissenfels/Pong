@@ -33,6 +33,17 @@
         <Label x:Name="score_s1_value"  Content="0" Canvas.Left="250" Canvas.Top="5" Width="123" Foreground="Red"/>
         <Label x:Name="score_s2"  Content="Score Spieler 2: " Canvas.Left="944" Canvas.Top="7" Width="123" Foreground="Red"/>
         <Label x:Name="score_s2_value"  Content="0" Canvas.Left="1061" Canvas.Top="7" Width="123" Foreground="Red"/>
+        <Slider Canvas.Left="497" Canvas.Top="8" RenderTransformOrigin="0.5,0.556" Width="223" Maximum="50" Minimum="1" Value="10" TickPlacement="BottomRight" TickFrequency="5" ValueChanged="Slider_ValueChanged">
+            <Slider.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0.05"/>
+                    <RotateTransform Angle="-0.064"/>
+                    <TranslateTransform Y="0.064"/>
+                </TransformGroup>
+            </Slider.RenderTransform>
+        </Slider>
+        <Label Content="Ball Geschwindigkeit:" Canvas.Left="353" Canvas.Top="5" Width="142" Foreground="Red"/>
     </Canvas>
 
 </Window>

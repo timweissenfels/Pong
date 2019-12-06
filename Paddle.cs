@@ -11,7 +11,7 @@ namespace Pong
         public enum MOVE_DIR { STOP = 0, UP = 1, DOWN = 2, Right = 3, Left = 4 }
         public enum p_type { COMPUTER = 1, PLAYER = 2 }
 
-        public enum p_level { NONE = 100, EASY = 10, MEDIUM = 5, UNBEATABLE = 1}
+        public enum p_level { NONE = 100, EASY = 10, MEDIUM = 1, UNBEATABLE = 1}
         public Rectangle Player_rec { get; set; }
 
         private double x;
@@ -104,9 +104,9 @@ namespace Pong
             else if (PType == p_type.COMPUTER)
             {
                 if(this.Y + this.Height/2 < playball.Y)
-                    this.Y += vY;
+                    this.Y += vY/(double)p_Level;
                 else if (this.Y + this.Height / 2 > playball.Y)
-                    this.Y -= vY;
+                    this.Y -= vY / (double)p_Level;
             }
         }
 

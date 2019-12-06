@@ -15,7 +15,7 @@ namespace Pong
         public Double Vy { get; set; }
         public Double Radius { get; set; }
 
-        bool Scored = false;
+        public bool Scored = false;
 
         public Ball(Double X = 100, Double Y = 100, Double Vx = 50, Double Vy = 80, Double Radius = 10)
         {
@@ -52,11 +52,10 @@ namespace Pong
             }
         }
 
-        public void Move(Double dt)
+        public void Move()
         {
-            X = X + Vx * dt / 1000;
-            Y = Y + Vy * dt / 1000;
-           // return new Pair<double, double>(X, Y);
+            X += Vx;
+            Y += Vy;
         }
 
         public void Collision(Rectangle r, ref Label lsp1, ref Label lsp2)
@@ -65,23 +64,22 @@ namespace Pong
             if (Y - Radius <= Canvas.GetTop(r))
             {
                 Vy = -Vy;                                       // Reflexion and der Bande
-                Y = Y + 2 * (Canvas.GetTop(r) - (Y - Radius));  // Korrektur des Detektionsfehlers
+                Y += 2 * (Canvas.GetTop(r) - (Y - Radius));  // Korrektur des Detektionsfehlers
             }
             else if (Y + Radius >= Canvas.GetTop(r) + r.Height)
             {
                 Vy = -Vy;
-                Y = Y - 2 * (Y + Radius - Canvas.GetTop(r) - r.Height);
+                Y -= 2 * (Y + Radius - Canvas.GetTop(r) - r.Height);
             }
 
             // Linke oder rechte Bande
             if (X - Radius <= Canvas.GetLeft(r))
             {
                 Vx = -Vx;
-                X = X + 2 * (Canvas.GetLeft(r) - (X - Radius));
+                X += 2 * (Canvas.GetLeft(r) - (X - Radius));
                 if (!this.Scored)
                 {
-                    int value;
-                    int.TryParse(lsp1.Content.ToString(), out value);
+                    int.TryParse(lsp1.Content.ToString(), out int value);
                     lsp1.Content = value + 1;
                 }
                 this.Elli.Fill = Brushes.Red;
@@ -90,11 +88,10 @@ namespace Pong
             else if (X + Radius >= Canvas.GetLeft(r) + r.Width)
             {
                 Vx = -Vx;
-                X = X - 2 * (X + Radius - Canvas.GetLeft(r) - r.Width);
+                X -= 2 * (X + Radius - Canvas.GetLeft(r) - r.Width);
                 if (!this.Scored)
                 {
-                    int value;
-                    int.TryParse(lsp2.Content.ToString(), out value);
+                    int.TryParse(lsp2.Content.ToString(), out int value);
                     lsp2.Content = value + 1;
                 }
                 this.Elli.Fill = Brushes.Red;
@@ -113,34 +110,49 @@ namespace Pong
         }
         public void Collision_paddle(Paddle p)
         {
-            if (X >= Canvas.GetLeft(p.Player_rec) - 1 * Radius && X <= Canvas.GetLeft(p.Player_rec) + p.Player_rec.Width + 1 * Radius)
-            {
-                if (Y + Radius >= Canvas.GetTop(p.Player_rec) && Y - Radius <= Canvas.GetTop(p.Player_rec))
-                {
-                    Vy = -Vy;
-                    Y -= 2.0 * (Y + Radius - Canvas.GetTop(p.Player_rec));
-                }
-                else if (Y - Radius <= Canvas.GetTop(p.Player_rec) + p.Player_rec.Height && Y + Radius >= Canvas.GetTop(p.Player_rec) + p.Player_rec.Height)
-                {
-                    Vy = -Vy;
-                    Y += 2.0 * (Canvas.GetTop(p.Player_rec) + p.Player_rec.Height - (Y - Radius));
-                }
-            }
-            if (Y >= Canvas.GetTop(p.Player_rec) - 1 * Radius && Y <= Canvas.GetTop(p.Player_rec) + p.Player_rec.Height + 1 * Radius)
-            {
-                if (X + Radius >= Canvas.GetLeft(p.Player_rec) && X - Radius <= Canvas.GetLeft(p.Player_rec))
-                {
-                    Vx = -Vx;
-                    X -= 2.0 * (X + Radius - Canvas.GetLeft(p.Player_rec));
-                }
-                else if (X - Radius <= Canvas.GetLeft(p.Player_rec) + p.Player_rec.Width && X + Radius >= Canvas.GetLeft(p.Player_rec) + p.Player_rec.Width)
-                {
-                    Vx = -Vx;
-                    X += 2.0 * (Canvas.GetLeft(p.Player_rec) + p.Player_rec.Width - (X - Radius));
-                }
-            }
+            Collision_paddle_top(p);
+            Collision_paddle_bottom(p);
+
             Canvas.SetLeft(Elli, X - Radius);
             Canvas.SetTop(Elli, Y - Radius);
+        }
+        public void Collision_paddle_top(Paddle p) 
+        {
+            double top_ball_point = this.Y - this.Radius;
+            double bottom_ball_point = this.Y + this.Radius;
+
+            if (X >= Canvas.GetLeft(p.Player_rec) - Radius && X <= Canvas.GetLeft(p.Player_rec) + p.Player_rec.Width + Radius)
+            {
+                if (bottom_ball_point >= Canvas.GetTop(p.Player_rec) && top_ball_point <= Canvas.GetTop(p.Player_rec))
+                {
+                    Vy = -Vy;
+                    Y -= 2 * (bottom_ball_point - Canvas.GetTop(p.Player_rec));
+                }
+                else if (Y - Radius <= Canvas.GetTop(p.Player_rec) + p.Player_rec.Height && bottom_ball_point >= Canvas.GetTop(p.Player_rec) + p.Player_rec.Height)
+                {
+                    Vy = -Vy;
+                    Y += 2 * (Canvas.GetTop(p.Player_rec) + p.Player_rec.Height - top_ball_point);
+                }
+            }
+        }
+        private void Collision_paddle_bottom(Paddle p)
+        {
+            double left_ball_point = this.X - this.Radius;
+            double right_ball_point = this.X + this.Radius;
+
+            if (Y >= Canvas.GetTop(p.Player_rec) - Radius && Y <= Canvas.GetTop(p.Player_rec) + p.Player_rec.Height + Radius)
+            {
+                if (right_ball_point >= Canvas.GetLeft(p.Player_rec) && left_ball_point <= Canvas.GetLeft(p.Player_rec))
+                {
+                    Vx = -Vx;
+                    X -= 2.0 * (right_ball_point - Canvas.GetLeft(p.Player_rec));
+                }
+                else if (left_ball_point <= Canvas.GetLeft(p.Player_rec) + p.Player_rec.Width && right_ball_point >= Canvas.GetLeft(p.Player_rec) + p.Player_rec.Width)
+                {
+                    Vx = -Vx;
+                    X += 2.0 * (Canvas.GetLeft(p.Player_rec) + p.Player_rec.Width - left_ball_point);
+                }
+            }
         }
     }
 }
