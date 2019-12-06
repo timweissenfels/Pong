@@ -38,17 +38,10 @@ namespace Pong
 
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
-            if (Keyboard.IsKeyDown(Key.W)) p1.DIR = Paddle.MOVE_DIR.UP;
-            else if (Keyboard.IsKeyDown(Key.S)) p1.DIR = Paddle.MOVE_DIR.DOWN;
+            //if(Keyboard.IsKeyDown(Key.Escape))
+            if(Keyboard.IsKeyDown(Key.Return))
+                InitializeComponent();
 
-            if (Keyboard.IsKeyDown(Key.W) && Keyboard.IsKeyDown(Key.S))
-                p1.DIR = Paddle.MOVE_DIR.STOP;
-
-            if (Keyboard.IsKeyDown(Key.Up)) p2.DIR = Paddle.MOVE_DIR.UP;
-            else if (Keyboard.IsKeyDown(Key.Down)) p2.DIR = Paddle.MOVE_DIR.DOWN;
-
-            if (Keyboard.IsKeyDown(Key.Up) && Keyboard.IsKeyDown(Key.Down))
-                p2.DIR = Paddle.MOVE_DIR.STOP;
         }
 
         private void MainWindow_KeyUp(object sender, KeyEventArgs e)
@@ -66,7 +59,7 @@ namespace Pong
             timer.Tick += new EventHandler(timer_Tick);
             timer.Interval = new TimeSpan(0, 0, 0, 0, 15);
 
-            ball = new Ball(250, 150, 200, 200, dlg.Radius);
+            ball = new Ball(250, 150, 400, 400, dlg.Radius);
             p1 = new Paddle(__X:Canvas.GetLeft(Rect) + 80, __pType: p_type.PLAYER);
             p2 = new Paddle(__X:Canvas.GetLeft(Rect) + Rect.Width - 100);
 
@@ -79,16 +72,34 @@ namespace Pong
         {
             Double ticks = Environment.TickCount;
             ball.Move(ticks - ticks_old);
+
+            check_move_DIR();
+
             p1.Move(ball);
             p2.Move(ball);
             ball.Collision(Rect);
             ball.Collision_paddle(p1);
             ball.Collision_paddle(p2);
 
-            p1.Collison(Rect);
-            p2.Collison(Rect);
+            p1.Collison(Rect,midrect);
+            p2.Collison(Rect,midrect);
 
             ticks_old = ticks;
+        }
+
+        private void check_move_DIR()
+        {
+            if (Keyboard.IsKeyDown(Key.W)) p1.DIR = Paddle.MOVE_DIR.UP;
+            if (Keyboard.IsKeyDown(Key.S)) p1.DIR = Paddle.MOVE_DIR.DOWN;
+
+            if (Keyboard.IsKeyDown(Key.Up)) p2.DIR = Paddle.MOVE_DIR.UP;
+            if (Keyboard.IsKeyDown(Key.Down)) p2.DIR = Paddle.MOVE_DIR.DOWN;
+
+            if (Keyboard.IsKeyDown(Key.A)) p1.DIR = Paddle.MOVE_DIR.Left;
+            if (Keyboard.IsKeyDown(Key.D)) p1.DIR = Paddle.MOVE_DIR.Right;
+
+            if (Keyboard.IsKeyDown(Key.Left)) p2.DIR = Paddle.MOVE_DIR.Left;
+            if (Keyboard.IsKeyDown(Key.Right)) p2.DIR = Paddle.MOVE_DIR.Right;
         }
 
         private void start_Click(object sender, RoutedEventArgs e)

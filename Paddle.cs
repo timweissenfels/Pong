@@ -8,12 +8,13 @@ namespace Pong
 {
     class Paddle
     {
-        public enum MOVE_DIR { UP = 0, DOWN = 1, STOP = 2 }
-        public Rectangle Rec { get; set; }
+        public enum MOVE_DIR { STOP = 0, UP = 1, DOWN = 2, Right = 3, Left = 4 }
+        public Rectangle Player_rec { get; set; }
 
         private double x;
         private double y;
         private double vY;
+        private double vX;
 
         public enum p_type
         {
@@ -27,7 +28,7 @@ namespace Pong
         {
             set
             {
-                this.x = value; Canvas.SetLeft(Rec, x);
+                this.x = value; Canvas.SetLeft(Player_rec, x);
             }
             get { return x; }
         }
@@ -35,51 +36,52 @@ namespace Pong
         {
             set
             {
-                this.y = value; Canvas.SetTop(Rec, y);
+                this.y = value; Canvas.SetTop(Player_rec, y);
             }
             get { return y; }
         }
 
         public double Height
         {
-            get { return Rec.Height; }
-            set { Rec.Height = value; }
+            get { return Player_rec.Height; }
+            set { Player_rec.Height = value; }
         }
         public double Width
         {
-            get { return Rec.Width; }
-            set { Rec.Width = value; }
+            get { return Player_rec.Width; }
+            set { Player_rec.Width = value; }
         }
 
-        public Paddle(double __Height = 200, double __Width = 100, double __X = 150, double __Y = 60, double __vY = 10, p_type __pType = p_type.COMPUTER)
+        public Paddle(double __Height = 200, double __Width = 20, double __X = 150, double __Y = 60, double __vY = 10, double __vX = 10, p_type __pType = p_type.COMPUTER)
         {
-            Rec = new Rectangle();
+            Player_rec = new Rectangle();
 
             this.Height = __Height;
             this.Width = __Width;
             this.X = __X;
             this.Y = __Y;
             this.vY = __vY;
+            this.vX = __vX;
             this.PType = __pType;
-            Rec.Fill = Brushes.IndianRed;
+            Player_rec.Fill = Brushes.Black;
 
-            Canvas.SetTop(Rec, this.Y);
-            Canvas.SetLeft(Rec, this.X);
+            Canvas.SetTop(Player_rec, this.Y);
+            Canvas.SetLeft(Player_rec, this.X);
         }
 
         public void Draw(Canvas c)
         {
-            if (!c.Children.Contains(Rec))
+            if (!c.Children.Contains(Player_rec))
             {
-                c.Children.Add(Rec);
+                c.Children.Add(Player_rec);
             }
         }
 
         public void UnDraw(Canvas c)
         {
-            if (c.Children.Contains(Rec))
+            if (c.Children.Contains(Player_rec))
             {
-                c.Children.Remove(Rec);
+                c.Children.Remove(Player_rec);
             }
         }
 
@@ -91,8 +93,8 @@ namespace Pong
             this.Width *= (sx + sy) / 2;
             this.Height *= (sx + sy) / 2;
 
-            Canvas.SetLeft(Rec, sx * Canvas.GetLeft(Rec));
-            Canvas.SetTop(Rec, sy * Canvas.GetTop(Rec));
+            Canvas.SetLeft(Player_rec, sx * Canvas.GetLeft(Player_rec));
+            Canvas.SetTop(Player_rec, sy * Canvas.GetTop(Player_rec));
         }
 
         public void Move(Ball playball)
@@ -100,9 +102,15 @@ namespace Pong
             if (PType == p_type.PLAYER)
             {
                 if (DIR == MOVE_DIR.UP)
-                    this.Y -= vY;
+                    this.Y -= this.vY;
                 else if (DIR == MOVE_DIR.DOWN)
-                    this.Y += vY;
+                    this.Y += this.vY;
+
+                if (DIR == MOVE_DIR.Left)
+                    this.X -= this.vX;
+                else if (DIR == MOVE_DIR.Right)
+                    this.X += this.vX;
+
             }
             else if (PType == p_type.COMPUTER)
             {
@@ -111,16 +119,26 @@ namespace Pong
                 else if (this.Y + this.Height / 2 > playball.Y)
                     this.Y -= vY;
             }
-
         }
 
-        public void Collison(Rectangle r)
+        public void Collison(Rectangle r, Rectangle midrec)
         {
             if (this.Y <= Canvas.GetTop(r))
                 this.Y = Canvas.GetTop(r);
 
             if (this.Y + this.Height >= Canvas.GetTop(r) + r.Height)
                 this.Y = Canvas.GetTop(r) + r.Height - this.Height;
+
+            if (this.X <= Canvas.GetLeft(r))
+                this.X = Canvas.GetLeft(r);
+
+            if (this.X + this.Width >= Canvas.GetLeft(r) + r.Width)
+                this.X = Canvas.GetTop(r) + r.Width - this.Width;
+
+            if(Canvas.GetLeft(this.Player_rec) + this.Width >= Canvas.GetLeft(midrec) && Canvas.GetLeft(this.Player_rec) < Canvas.GetLeft(midrec))
+                this.X = Canvas.GetLeft(midrec) + midrec.Width - this.Width;
+
+
         }
     }
 }
