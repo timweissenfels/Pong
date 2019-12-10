@@ -112,6 +112,7 @@
     <Compile Include="Ball.cs" />
     <Compile Include="Paddle.cs" />
     <Compile Include="Pair.cs" />
+    <Compile Include="powerup.cs" />
     <Compile Include="StartDlg.xaml.cs">
       <DependentUpon>StartDlg.xaml</DependentUpon>
     </Compile>

@@ -11,7 +11,7 @@ namespace Pong
         public enum MOVE_DIR { STOP = 0, UP = 1, DOWN = 2, Right = 3, Left = 4 }
         public enum p_type { COMPUTER = 1, PLAYER = 2 }
 
-        public enum p_level { NONE = 100, EASY = 10, MEDIUM = 1, UNBEATABLE = 1}
+        public enum p_level { NONE = 0, EASY = 1, MEDIUM = 5, UNBEATABLE = 10}
         public Rectangle Player_rec { get; set; }
 
         private double x;
@@ -51,7 +51,7 @@ namespace Pong
             set { Player_rec.Width = value; }
         }
 
-        public Paddle(double __Height = 200, double __Width = 20, double __X = 150, double __Y = 60, double __vY = 10, double __vX = 10, p_type __pType = p_type.COMPUTER,p_level __p_Level = p_level.MEDIUM)
+        public Paddle(double __Height = 200, double __Width = 20, double __X = 150, double __Y = 60, double __vY = 10, double __vX = 10, p_type __pType = p_type.COMPUTER,p_level __p_Level = p_level.EASY)
         {
             Player_rec = new Rectangle();
 
@@ -104,9 +104,9 @@ namespace Pong
             else if (PType == p_type.COMPUTER)
             {
                 if(this.Y + this.Height/2 < playball.Y)
-                    this.Y += vY/(double)p_Level;
+                    this.Y += (vY*(double)p_Level);
                 else if (this.Y + this.Height / 2 > playball.Y)
-                    this.Y -= vY / (double)p_Level;
+                    this.Y -= (vY * (double)p_Level);
             }
         }
 
@@ -126,8 +126,6 @@ namespace Pong
 
             if(Canvas.GetLeft(this.Player_rec) + this.Width >= Canvas.GetLeft(midrec) && Canvas.GetLeft(this.Player_rec) < Canvas.GetLeft(midrec))
                 this.X = Canvas.GetLeft(midrec) + midrec.Width - this.Width;
-
-
         }
     }
 }
